@@ -5,9 +5,18 @@ import { router } from "./routes/router.js";
 
 const app = express();
 
-//Middlewares
+// Global middleware
+app.use(express.json()); // Parse incoming JSON payloads
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded payloads
+
+// Logger
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
+
+// Enable CORS with predefined options
 app.use(cors(corsOptions));
-app.use(express.json());
 
 //Routes
 app.use("/api", router);
