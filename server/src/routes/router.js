@@ -1,6 +1,10 @@
+import { userRouter } from "./userRouter.js";
 import { Router } from "express";
 
 export const router = Router();
+
+// API routes
+router.use("/users", userRouter); // User-related routes
 
 /**
  * @route GET /api/ping
@@ -10,4 +14,14 @@ export const router = Router();
  */
 router.get("/ping", (req, res) => {
   res.status(200).json({ message: "The server is running!" });
+});
+
+/**
+ * @route ALL *
+ * @description Handles all other routes and returns a 404 error if the route is not found.
+ * @access Public
+ * @returns {object} Returns a JSON object with an error property indicating the route was not found.
+ */
+router.use("/", (req, res) => {
+  res.status(404).json({ error: `The requested route ${req.originalUrl} was not found` });
 });

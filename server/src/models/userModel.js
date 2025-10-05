@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { userRoles } from "../enums/userRoles.js";
-import { RefreshToken } from "./refreshTokenModel.js";
+import { RefreshTokenSchema } from "./refreshTokenModel.js";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema(
     password: { type: String, required: true, select: false },
     roles: { type: String, enum: Object.values(userRoles), default: userRoles.USER },
     avatar: { type: String },
-    refreshTokens: { type: [RefreshToken.schema], select: false },
+    refreshTokens: { type: [RefreshTokenSchema], select: false },
   },
   { timestamps: true },
 );  
